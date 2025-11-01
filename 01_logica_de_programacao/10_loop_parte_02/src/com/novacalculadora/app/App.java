@@ -9,11 +9,10 @@ public class App {
         // Declaração de variáveis
         double x; 
         double y; 
-        double resultado;
-        int opcao = 0;
+        double resultado = 0.0;
         String operacao;
 
-        // FIXME: loop
+        // loop
         do {
             // menu
             System.out.println("Informe a opção desejada: ");
@@ -26,7 +25,7 @@ public class App {
             System.out.println("7 - Sair do programa");
             operacao = leia.nextLine();
 
-            if (operacao != "7" ) {
+            if (!operacao.equals("7")) {
                 // entrada de dados 
                 System.out.println("Informe o valor de x: ");
                 x = leia.nextDouble();
@@ -34,47 +33,40 @@ public class App {
                 System.out.println("Informe o valor de y: ");
                 y = leia.nextDouble();
 
+                // limpar o buffer 
+                leia.nextLine();
+
                 switch (operacao) {
                     case "1":
                         resultado = x + y;
-                        System.out.println("Resultado: " + resultado);
                         break;
                     case "2":
                         resultado = x - y;
-                        System.out.println("Resultado: " + resultado);
                         break;
                     case "3":
                         resultado = x * y;
-                        System.out.println("Resultado: " + resultado);
                         break;
                     case "4":
                         resultado = x / y;
-                        System.out.println("Resultado: " + resultado);
                         break;
                     case "5":
                         resultado = x % y;
-                        System.out.println("Resultado: " + resultado);
                         break;
                     case "6":
                         resultado = Math.pow(x, y);
-                        System.out.println("Resultado: " + resultado);
                         break;
                         
                     default:
                         System.out.println("Opção inválida!");
                         break;
                 }
+                // Mostrar o resultado
+                System.out.println("O resultado da operação é: " + resultado);
             } 
-            else {
-                System.out.println("Saindo do programa...");
 
-                break;
-            }
-
-            // limpar buffer
-            leia.nextLine();
-
-        } while(opcao != 7);
+        } while(!operacao.equals("7"));
+        
+        System.out.println("Programa encerrado.");
 
         leia.close();
     }
