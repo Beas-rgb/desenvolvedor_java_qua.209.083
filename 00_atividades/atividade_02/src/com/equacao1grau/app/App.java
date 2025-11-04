@@ -12,8 +12,14 @@ public class App {
         System.out.print("Digite o valor de b: "); 
         double b = leia.nextDouble();
 
-        double x = -b / a;
-        System.out.println("O resultado de x é: " + x);
+        if (a != 0 ){
+            double x = -b / a;
+            System.out.println("O valor de x é: " + x);
+        }
+        else {
+            System.out.println("Não exite raíz real.");
+        }
+
 
         leia.close();
     }

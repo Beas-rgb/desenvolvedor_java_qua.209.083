@@ -12,13 +12,13 @@ public class App {
         System.out.println("Inform a data de nascimento (dd/mm/aaaa): ");
         String dataNascimento = leia.nextLine();
 
-        System.out.println("Informe o seu cpf:");
+        System.out.println("Informe o seu cpf: ");
         String cpf = leia.nextLine();
 
-        System.out.println("Informe o seu e-mail:");
+        System.out.println("Informe o seu e-mail: ");
         String email = leia.nextLine();
 
-        System.out.println("Informe o seu :");
+        System.out.println("Informe o seu telefone: ");
         String telefone = leia.nextLine();
 
         System.out.println("\n--- Dados Informados ---");
@@ -28,8 +28,7 @@ public class App {
         System.out.println("CPF: " + cpf);
         System.out.println("E-mail: " + email); 
         System.out.println("Telefone: " + telefone);
-
-
+ 
 
         leia.close();
     }

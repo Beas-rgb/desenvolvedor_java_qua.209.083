@@ -6,16 +6,29 @@ public class App {
     public static void main(String[] args) throws Exception {
         Scanner ler = new Scanner(System.in);
 
+        String resultado;
+
         System.out.println("Digite o peso em kg:");
         double peso = ler.nextDouble();
-
+        
         System.out.println("Digite a altura em metros:");
         double altura = ler.nextDouble();
 
 
         double imc = peso / (altura * altura);
 
-        System.out.printf("\n59Seu IMC é: %.2f%n", imc);
+        System.out.printf("\nSeu IMC é: %.2f.%n", imc);
+
+
+        resultado = (imc < 18.5) ? "Abaixo do peso (Magreza)" :
+                    (imc >= 18.5 && imc < 25) ? "Normal" :
+                    (imc >= 25 && imc < 30) ? "Sobrepeso" :
+                    (imc >= 30 && imc < 35) ? "Obesidade Grau I" :
+                    (imc >= 35 && imc < 40) ? "Obesidade Grau II" :
+                    "Obesidade Grau III (Mórbida)";
+
+        System.out.printf("Classificação: %s%n%n", resultado);
+        /* /
         if (imc < 18.5){
             System.out.printf("%-20s %-25s %-20s%n", "Menor que 18,5", "Abaixo do peso (Magreza)", "Baixo");
         }
@@ -33,7 +46,7 @@ public class App {
         }
         else {
             System.out.printf("%-20s %-25s %-20s%n", "40,0 ou mais", "Obesidade Grau III (Mórbida)", "Muito alto");
-        }
+        } */
 
 
         ler.close();
