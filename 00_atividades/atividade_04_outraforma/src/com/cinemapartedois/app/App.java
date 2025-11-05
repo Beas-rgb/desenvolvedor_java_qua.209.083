@@ -2,15 +2,23 @@ package com.cinemapartedois.app;
 
 import java.util.Scanner;
 
+
+import java.util.Random;
+
 public class App {
     public static void main(String[] args) throws Exception {
         Scanner leia = new Scanner(System.in);
+        Random random = new Random();
 
         String[] salas = new String[5];
         String nome;
         String sala;
+        String filme = "";
         int idadeMinima = 0;
         int idade;
+
+        int numero = random.nextInt(1000);
+        int poltrona = random.nextInt(50) + 1;
 
 
         // inicializar o array 
@@ -42,7 +50,41 @@ public class App {
             System.out.print("Escolha a sala desejada (1-5): ");
             sala = leia.nextLine();
 
-            // TODO : termina o programa
+            switch (sala) {
+                case "1":
+                    filme = salas[0];
+                    idadeMinima = 0;
+                    break;
+                case "2":
+                    filme = salas[1];
+                    idadeMinima = 12;
+                    break;
+                case "3":
+                    filme = salas[2];
+                    idadeMinima = 14;
+                    break;
+                case "4":
+                    filme = salas[3];
+                    idadeMinima = 16;
+                    break;
+                case "5":
+                    filme = salas[4];
+                    idadeMinima = 18;
+                    break;
+
+                default:
+                    System.out.println("Sala inválida! Tente novamente.");
+                    continue;
+            }
+
+            if (idade >= idadeMinima) {
+                System.out.println("Acesso permitido!"+ nome + ", Aproveite o filme: " + filme + "." + " Cupom nº " + numero + " | Poltrona " + poltrona);
+                System.out.println("🥳");
+            } 
+            else {
+                System.out.println("Acesso negado! Você não tem idade suficiente para assistir: " + filme + ". Idade mínima: " + idadeMinima + " anos.");
+                System.out.println("😞");
+            }
         } while (idade < idadeMinima);
 
         leia.close();
