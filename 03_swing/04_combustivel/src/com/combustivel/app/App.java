@@ -17,7 +17,7 @@ public class App {
 
         do {
             // entrada de dados
-            opcao = JOptionPane.showInputDialog(null, "Selecione uma opção", "Combustivel", 0, null, opcoes, opcoes[0]);
+            opcao = JOptionPane.showInputDialog(null, "Selecione uma opção", "Combustivel", JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
 
             if (opcao != "Sair do programa"){
                 combustivel.setGasolina(Double.parseDouble(JOptionPane.showInputDialog("Infome o valor da gasolina: ").replace("," , ".")));
