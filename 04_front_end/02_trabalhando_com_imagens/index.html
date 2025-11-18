@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!--   -->
+    <meta name="author" content="João Gabriel"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link id="dynamic-favicon" rel="icon" href="img/eye.png">
+   
+    <style>
+        video {
+            width: 700px;
+            height: 394px;
+            border: 8px solid blue;
+            animation: borderSuave 20s infinite alternate;
+            border-radius: 5px;
+        }
+
+        @keyframes borderSuave  {
+        0%   { border-color: rgb(255, 99, 71); }   /* tomato */
+        25%  { border-color: rgb(135, 206, 250); } /* light blue */
+        50%  { border-color: rgb(144, 238, 144); } /* light green */
+        75%  { border-color: rgb(221, 160, 221); } /* plum */
+        100% { border-color: rgb(255, 215, 0); }   /* gold */
+        }
+    </style>
+</head>
+<body>
+    <h1>Trabalhando com imagens</h1>
+    <hr>
+    <video src="img/854255-hd_1280_720_30fps.mp4"  autoplay  muted loop  >aa</video>
+    
+
+    <script>
+    const favicon = document.getElementById('dynamic-favicon');
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.src = 'img/eye.png'; // Seu favicon original com transparência
+
+    let hue = 0;
+
+    img.onload = function() {
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      function updateFavicon() {
+        // Limpa o canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Desenha a imagem original
+        ctx.drawImage(img, 0, 0);
+
+        // Aplica filtro de matiz (hue)
+        ctx.globalCompositeOperation = 'hue';
+        ctx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Reseta composição
+        ctx.globalCompositeOperation = 'source-over';
+
+        // Atualiza o favicon
+        favicon.href = canvas.toDataURL('image/png');
+
+        // Incrementa a cor
+        hue = (hue + 1) % 360;
+
+        requestAnimationFrame(updateFavicon);
+      }
+
+      updateFavicon();
+    }
+    </script>
+</body>
+</html>
