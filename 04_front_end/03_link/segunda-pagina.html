@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segunda Pagina</title>
+    <style>
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;  /* Faz o vídeo preencher a tela sem distorcer */
+            z-index: -1;        /* Fica atrás do conteúdo */
+        }
+
+        /* Container central */
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* centraliza 100% */
+            text-align: center;  /* centraliza H1 e botão */
+            z-index: 1;
+        }
+
+        /* Estilo do H1 */
+        .content h1 {
+            color: white;
+            font-size: 56px;
+            margin-bottom: 20px;
+        }
+
+        /* Estilo do botão/link */
+        .content .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: white;
+            color: black;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 20px;
+        }
+
+        h1{
+            color: white;
+            text-align: center;
+            background: rgba(13, 224, 189, 0.5);
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            margin-left: 400px;
+            margin-right: 400px;
+            
+        }
+        button {
+            background-color: rgba(13, 224, 189, 0.5);
+            border-radius: 5px;
+            padding: 10px;
+
+
+            text-align: center;
+        }
+         button:hover {
+            background-color: rgba(13, 224, 189, 1);
+        }
+        a{
+            text-decoration: none;
+            color: white;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+    <video autoplay muted loop id="bg-video">
+    <source src="img/13816718_1920_1080_60fps.mp4" type="video/mp4">
+    Seu navegador não suporta vídeos HTML5.
+    </video>
+    <div class="content">
+    <h1>Segunda Pagina</h1>
+
+    <button id="voltar"><a href="index.html">Voltar</a></button>
+ 
+    <button id="fibra" onclick="window.open('https://www.sistemafibra.org.br/fibra/', '_blank')">
+    sistemafibra
+    </button>
+    </div>
+
+
+
+</body>
+</html>
