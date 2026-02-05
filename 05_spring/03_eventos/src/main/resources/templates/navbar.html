@@ -1,36 +1,87 @@
-<nav class="navbar navbar-expand-lg bg-dark mb-5" data-bs-theme="dark" th:fragment="navbar">
+<nav class="navbar navbar-expand-lg bg-dark mb-5" data-bs-theme="dark"
+     th:fragment="navbar"
+     xmlns:th="http://www.thymeleaf.org">
+
+  <style>
+    /* LOGO GIF NEON */
+    .logo-gif {
+      height: 45px;
+      border-radius: 12px;
+      padding: 4px;
+      border: 2px solid #00ffe1;
+      box-shadow:
+        0 0 10px rgba(0, 255, 225, 0.8),
+        0 0 20px rgba(0, 255, 225, 0.6);
+      transition: 0.3s ease-in-out;
+    }
+
+    .logo-gif:hover {
+      transform: scale(1.1);
+      box-shadow:
+        0 0 15px rgba(0, 255, 225, 1),
+        0 0 30px rgba(0, 255, 225, 0.9);
+    }
+
+    /* LINKS NEON */
+    .nav-link {
+      color: #fff !important;
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background: #00ffe1;
+      box-shadow: 0 0 8px #00ffe1;
+      transition: width 0.3s;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+  </style>
+
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+    <!-- LOGO GIF -->
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img src="/img/logo-neon.gif" alt="Logo Eventos" class="logo-gif">
+    </a>
+
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/cadastrarEvento">Cadastrar evento</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          <a class="nav-link" href="/cadastrarEvento">Cadastrar Evento</a>
         </li>
       </ul>
+
       <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <input class="form-control me-2 bg-dark text-light border-info"
+               type="search"
+               placeholder="Buscar evento"
+               aria-label="Search">
+        <button class="btn btn-outline-info" type="submit">
+          Buscar
+        </button>
       </form>
+
     </div>
   </div>
 </nav>
