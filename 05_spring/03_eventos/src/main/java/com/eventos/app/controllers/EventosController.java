@@ -14,7 +14,11 @@ public class EventosController {
     @Autowired
     private EventosRepository csr;
 
+<<<<<<< HEAD
     @RequestMapping(value="/", method = RequestMethod.GET)
+=======
+    @RequestMapping(value="/", method=RequestMethod.GET)
+>>>>>>> ae4a43b943b5defde95a2d154a0e071810f7f854
     public ModelAndView index() {
         ModelAndView mv = new ModelAndView("index");
         Iterable<Evento> eventos = csr.findAll();
