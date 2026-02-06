@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cadastrar Evento</title>
+  <title>Editar Evento</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -61,7 +61,6 @@
       box-shadow: 0 0 20px rgba(255, 78, 205, 1);
     }
 
-    /* ===== CAROUSEL IMAGENS ===== */
     .img-option {
       height: 230px;
       object-fit: cover;
@@ -91,59 +90,67 @@
     <div class="col-md-6">
 
       <div class="card p-4">
-        <h1 class="text-center mb-4">Cadastrar Evento</h1>
+        <h1 class="text-center mb-4">Editar Evento</h1>
 
-        <form method="POST" action="/cadastrarEvento" onsubmit="return validarFormulario()">
+        <!-- FORM COM THYMELEAF -->
+        <form th:action="@{/editarEvento/{idEvento}(idEvento=${evento.idEvento})}"
+      th:object="${evento}"
+      method="post">
 
-          <!-- ===== CAROUSEL ESCOLHA DE IMAGEM ===== -->
+          <!-- ID OCULTO -->
+          <input type="hidden" th:field="*{idEvento}"/>
+
+          <!-- ===== CAROUSEL IMAGENS ===== -->
           <div class="mb-4">
-            <label class="form-label mb-3">Escolha a imagem do evento</label>
+            <label class="form-label mb-3">Imagem do evento</label>
 
             <div id="imgCarousel" class="carousel slide" data-bs-ride="false">
               <div class="carousel-inner text-center">
 
                 <div class="carousel-item active">
                   <label>
-                    <input type="radio" name="imagem" value="evento1.jpg" checked>
+                    <input type="radio" th:field="*{imagem}" value="evento1.jpg">
                     <img src="/img/evento1.jpg" class="d-block w-100 img-option">
                   </label>
                 </div>
 
                 <div class="carousel-item">
                   <label>
-                    <input type="radio" name="imagem" value="evento2.jpg">
+                    <input type="radio" th:field="*{imagem}" value="evento2.jpg">
                     <img src="/img/evento2.jpg" class="d-block w-100 img-option">
                   </label>
                 </div>
 
                 <div class="carousel-item">
                   <label>
-                    <input type="radio" name="imagem" value="evento3.jpg">
+                    <input type="radio" th:field="*{imagem}" value="evento3.jpg">
                     <img src="/img/evento3.jpg" class="d-block w-100 img-option">
                   </label>
                 </div>
 
                 <div class="carousel-item">
                   <label>
-                    <input type="radio" name="imagem" value="evento4.jpg">
+                    <input type="radio" th:field="*{imagem}" value="evento4.jpg">
                     <img src="/img/evento4.jpg" class="d-block w-100 img-option">
                   </label>
                 </div>
 
                 <div class="carousel-item">
                   <label>
-                    <input type="radio" name="imagem" value="evento5.jpg">
+                    <input type="radio" th:field="*{imagem}" value="evento5.jpg">
                     <img src="/img/evento5.jpg" class="d-block w-100 img-option">
                   </label>
                 </div>
 
               </div>
 
-              <button class="carousel-control-prev" type="button" data-bs-target="#imgCarousel" data-bs-slide="prev">
+              <button class="carousel-control-prev" type="button"
+                      data-bs-target="#imgCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon"></span>
               </button>
 
-              <button class="carousel-control-next" type="button" data-bs-target="#imgCarousel" data-bs-slide="next">
+              <button class="carousel-control-next" type="button"
+                      data-bs-target="#imgCarousel" data-bs-slide="next">
                 <span class="carousel-control-next-icon"></span>
               </button>
             </div>
@@ -152,28 +159,28 @@
           <!-- NOME -->
           <div class="mb-3">
             <label class="form-label">Nome do evento</label>
-            <input type="text" class="form-control" name="nome" required>
+            <input type="text" class="form-control" th:field="*{nome}" required>
           </div>
 
           <!-- LOCAL -->
           <div class="mb-3">
             <label class="form-label">Local</label>
-            <input type="text" class="form-control" name="local" required>
+            <input type="text" class="form-control" th:field="*{local}" required>
           </div>
 
           <!-- DATA -->
           <div class="mb-3">
             <label class="form-label">Data</label>
-            <input type="date" class="form-control" name="data" required>
+            <input type="date" class="form-control" th:field="*{data}" required>
           </div>
 
           <!-- HORA -->
           <div class="mb-4">
             <label class="form-label">Hora</label>
-            <input type="time" class="form-control" name="hora" required>
+            <input type="time" class="form-control" th:field="*{hora}" required>
           </div>
 
-          <button class="btn btn-neon w-100">Cadastrar Evento</button>
+          <button class="btn btn-neon w-100">Salvar Alterações</button>
 
         </form>
       </div>
@@ -183,18 +190,6 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- VALIDAÇÃO JS -->
-<script>
-  function validarFormulario() {
-    const imagemSelecionada = document.querySelector('input[name="imagem"]:checked');
-    if (!imagemSelecionada) {
-      alert("⚠️ Escolha uma imagem para o evento!");
-      return false;
-    }
-    return true;
-  }
-</script>
 
 </body>
 </html>

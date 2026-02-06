@@ -1,39 +1,43 @@
 package com.eventos.app.models;
 
-import java.io.Serializable;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import java.util.UUID;
 
 @Entity
-public class Evento implements Serializable {
-    private static final long serialVersionUID = 1L;
+@Table(name = "evento")
+public class Evento {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private long idEvento;
+    @Column(name = "id_evento", nullable = false, updatable = false)
+    private String idEvento;
+
     private String nome;
     private String local;
     private LocalDate data;
     private LocalTime hora;
+    private String imagem;
 
-    public Evento() {
+    @PrePersist
+    public void gerarId() {
+        this.idEvento = UUID.randomUUID().toString();
     }
 
-    public long getIdEvento() {
-        return this.idEvento;
+    // getters e setters
+
+
+
+    public String getIdEvento() {
+        return idEvento;
     }
 
-    public void setIdEvento(long idEvento) {
+    public void setIdEvento(String idEvento) {
         this.idEvento = idEvento;
     }
 
     public String getNome() {
-        return this.nome;
+        return nome;
     }
 
     public void setNome(String nome) {
@@ -41,7 +45,7 @@ public class Evento implements Serializable {
     }
 
     public String getLocal() {
-        return this.local;
+        return local;
     }
 
     public void setLocal(String local) {
@@ -49,7 +53,7 @@ public class Evento implements Serializable {
     }
 
     public LocalDate getData() {
-        return this.data;
+        return data;
     }
 
     public void setData(LocalDate data) {
@@ -57,10 +61,18 @@ public class Evento implements Serializable {
     }
 
     public LocalTime getHora() {
-        return this.hora;
+        return hora;
     }
 
     public void setHora(LocalTime hora) {
         this.hora = hora;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 }

@@ -1,9 +1,9 @@
-<nav class="navbar navbar-expand-lg bg-dark mb-5" data-bs-theme="dark"
+<nav class="navbar navbar-expand-lg bg-dark mb-5"
+     data-bs-theme="dark"
      th:fragment="navbar"
      xmlns:th="http://www.thymeleaf.org">
 
   <style>
-    /* LOGO GIF NEON */
     .logo-gif {
       height: 45px;
       border-radius: 12px;
@@ -22,7 +22,6 @@
         0 0 30px rgba(0, 255, 225, 0.9);
     }
 
-    /* LINKS NEON */
     .nav-link {
       color: #fff !important;
       position: relative;
@@ -47,17 +46,15 @@
 
   <div class="container-fluid">
 
-    <!-- LOGO GIF -->
-    <a class="navbar-brand d-flex align-items-center" href="/">
-      <img src="/img/logo-neon.gif" alt="Logo Eventos" class="logo-gif">
+    <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
+      <img th:src="@{/img/logo-neon.gif}"
+           alt="Logo Eventos"
+           class="logo-gif">
     </a>
 
     <button class="navbar-toggler" type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
+            data-bs-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -65,18 +62,19 @@
 
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a class="nav-link active" th:href="@{/}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/cadastrarEvento">Cadastrar Evento</a>
+          <a class="nav-link" th:href="@{/cadastrarEvento}">
+            Cadastrar Evento
+          </a>
         </li>
       </ul>
 
-      <form class="d-flex" role="search">
+      <form class="d-flex">
         <input class="form-control me-2 bg-dark text-light border-info"
                type="search"
-               placeholder="Buscar evento"
-               aria-label="Search">
+               placeholder="Buscar evento">
         <button class="btn btn-outline-info" type="submit">
           Buscar
         </button>

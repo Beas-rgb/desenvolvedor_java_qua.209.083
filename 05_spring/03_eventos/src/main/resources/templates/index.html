@@ -1,148 +1,81 @@
 <!doctype html>
-<<<<<<< HEAD
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-=======
-<html lang="pt-br">
->>>>>>> ae4a43b943b5defde95a2d154a0e071810f7f854
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Eventos Spring</title>
-<<<<<<< HEAD
 
-  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Neon Theme -->
   <style>
     body {
       min-height: 100vh;
       background: linear-gradient(135deg, #2b1055, #6a0572);
       color: #fff;
-      font-family: 'Segoe UI', sans-serif;
     }
 
-    h1 {
-      color: #ff4ecd;
-      text-shadow: 0 0 10px rgba(255, 78, 205, 0.8);
-    }
-
-    hr {
-      border-color: rgba(255,255,255,0.2);
-    }
-
-    /* ===== CAROUSEL ===== */
-    .carousel-inner img {
-      height: 260px;
-      object-fit: cover;
-      border-radius: 16px;
-      box-shadow: 0 0 25px rgba(255, 78, 205, 0.6);
-    }
-
-    /* ===== CARD ===== */
     .card {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, .08);
       border: 1px solid #ff4ecd;
       border-radius: 18px;
-      box-shadow: 0 0 15px rgba(255, 78, 205, 0.4);
       transition: transform 0.3s, box-shadow 0.3s;
-      overflow: hidden;
     }
 
     .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 0 25px rgba(255, 78, 205, 0.9);
+      transform: scale(1.03);
+      box-shadow: 0 0 20px rgba(255, 78, 205, 0.8);
     }
 
     .card-img-top {
       height: 180px;
       object-fit: cover;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      border: 2px solid transparent;
+      transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
     }
 
-    .card-title {
-      color: #ff4ecd;
-      font-weight: bold;
-    }
-
-    .card-subtitle {
-      color: #d0d0d0 !important;
-    }
-
-    strong {
-      color: #ff9de2;
+    .card-img-top:hover {
+      transform: scale(1.05);
+      border: 2px solid #ff4ecd;
+      box-shadow: 0 0 20px rgba(255, 78, 205, 0.8);
     }
   </style>
 </head>
 
 <body>
 
-  <!-- header -->
   <header th:replace="~{navbar :: navbar}"></header>
 
   <main class="container mt-4">
 
-    <!-- 🔥 CAROUSEL -->
-    <div id="eventCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="/img/banner1.jpg" class="d-block w-100" alt="Evento 1">
-        </div>
-        <div class="carousel-item">
-          <img src="/img/banner2.jpg" class="d-block w-100" alt="Evento 2">
-        </div>
-        <div class="carousel-item">
-          <img src="/img/banner3.jpg" class="d-block w-100" alt="Evento 3">
-        </div>
-      </div>
-
-      <button class="carousel-control-prev" type="button" data-bs-target="#eventCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-
-      <button class="carousel-control-next" type="button" data-bs-target="#eventCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </button>
-    </div>
-
-    <!-- TÍTULO -->
     <h1 class="mb-4">Próximos Eventos</h1>
     <hr>
 
-    <!-- 🖼️ CARDS -->
-    <div class="row">
-      <div class="col-md-4 mb-4" th:each="evento : ${eventos}">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col" th:each="evento : ${eventos}">
         <div class="card h-100">
 
-          <!-- IMAGEM DO EVENTO -->
-          <img 
-            src="/img/evento-default.jpg"
-            class="card-img-top"
-            alt="Imagem do Evento">
+          <!-- Imagem corrigida -->
+          <img th:src="${evento.imagem != null ? '/img/' + evento.imagem : '/img/evento-default.jpg'}"
+               class="card-img-top">
 
           <div class="card-body">
-            <h5 class="card-title" th:text="${evento.nome}">Nome do Evento</h5>
-
-            <h6 class="card-subtitle mb-3">
-              ID: <span th:text="${evento.idEvento}"></span>
-            </h6>
-
-            <p class="card-text">
-              <strong>Local:</strong>
-              <span th:text="${evento.local}"></span>
-            </p>
-
-            <p class="card-text">
-              <strong>Data:</strong>
-              <span th:text="${#temporals.format (evento.data, 'dd/MM/yyyy')}"></span>
-            </p>
-
-            <p class="card-text">
-              <strong>Hora:</strong>
-              <span th:text="${evento.hora}"></span>
-            </p>
+            <h5 th:text="${evento.nome}"></h5>
+            <p><strong>Local:</strong> <span th:text="${evento.local}"></span></p>
+            <p><strong>Data:</strong> <span th:text="${#temporals.format(evento.data,'dd/MM/yyyy')}"></span></p>
+            <p><strong>Hora:</strong> <span th:text="${evento.hora}"></span></p>
           </div>
+
+          <div class="card-footer d-flex justify-content-between">
+            <a th:href="@{/editarEvento/{idEvento}(idEvento=${evento.idEvento})}" 
+               class="btn btn-sm btn-outline-info">Editar</a>
+
+            <a th:href="@{/excluirEvento/{idEvento}(idEvento=${evento.idEvento})}" 
+               class="btn btn-sm btn-outline-danger"
+               onclick="return confirm('Tem certeza que deseja excluir este evento?')">Excluir</a>
+          </div>
+
         </div>
       </div>
     </div>
@@ -151,41 +84,5 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
-=======
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-</head>
-
-<body>
-  <!-- header -->
-  <header th:replace="~{navbar :: navbar}"></header>
-
-  <!-- main -->
-  <main>
-    <div class="container">
-      <h1>Próximos Eventos</h1>
-      <hr />
-      <div class="row">
-        <div class="col-12 col-md-6 col-lg-3" th:each="evento : ${eventos}">
-          <!-- card -->
-          <div class="card mt-5" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title" th:text="${evento.nome}"></h5>
-              <h6 class="card-subtitle mb-2 text-body-secondary">ID: <span th:text="${evento.idEvento}"></span></h6>
-              <div class="card-text">Local: <span th:text="${evento.local}"></span>.</div>
-              <div class="card-text">Data: <span th:text="{#temporals.format(evento.data, 'dd/MM/yyyy')}"></span>.</div>
-              <div class="card-text">Hora: <span th:text="${evento.hora}"></span>.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-    crossorigin="anonymous"></script>
-</body>
 
 </html>
->>>>>>> ae4a43b943b5defde95a2d154a0e071810f7f854
