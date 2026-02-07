@@ -1,66 +1,76 @@
 package com.eventos.app.controllers;
 
+import com.eventos.app.models.Evento;
+import com.eventos.app.repository.EventosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.eventos.app.models.Evento;
-import com.eventos.app.repository.EventosRepository;
-
 @Controller
 public class EventosController {
 
     @Autowired
-    private EventosRepository csr;
+    private EventosRepository eventosRepository;
 
-    // ================== HOME ==================
+    // ===== LISTAR EVENTOS =====
     @GetMapping("/")
     public ModelAndView index() {
         ModelAndView mv = new ModelAndView("index");
-        mv.addObject("eventos", csr.findAll());
+        mv.addObject("eventos", eventosRepository.findAll());
         return mv;
     }
 
-    // ================== CADASTRAR ==================
+    // ===== FORM CADASTRAR =====
     @GetMapping("/cadastrarEvento")
     public String cadastrarEvento() {
         return "cadastrar-evento";
     }
 
+    // ===== SALVAR EVENTO =====
     @PostMapping("/cadastrarEvento")
-    public String salvarEvento(Evento evento, RedirectAttributes ra) {
-        csr.save(evento);
+    public String salvarEvento(
+            Evento evento,
+            @RequestParam("imagem") String imagem,
+            RedirectAttributes ra) {
+
+        evento.setImagem(imagem);
+        eventosRepository.save(evento);
+
         ra.addFlashAttribute("sucesso", "🎉 Evento cadastrado com sucesso!");
         return "redirect:/";
     }
 
-    // ================== EDITAR ==================
-    // Form de edição
+    // ===== FORM EDITAR (GET) =====
     @GetMapping("/editarEvento/{idEvento}")
     public ModelAndView editarEvento(@PathVariable String idEvento) {
-        Evento evento = csr.findByIdEvento(idEvento);
         ModelAndView mv = new ModelAndView("editar-evento");
+        Evento evento = eventosRepository.findById(idEvento).orElseThrow();
         mv.addObject("evento", evento);
         return mv;
     }
 
-    // Salvar alterações
+    // ===== ATUALIZAR EVENTO (POST) =====
     @PostMapping("/editarEvento/{idEvento}")
-    public String atualizarEvento(@PathVariable String idEvento, Evento evento, RedirectAttributes ra) {
-        // Garantir que o ID do evento não seja alterado
+    public String atualizarEvento(
+            @PathVariable String idEvento,
+            Evento evento,
+            @RequestParam("imagem") String imagem,
+            RedirectAttributes ra) {
+
         evento.setIdEvento(idEvento);
-        csr.save(evento);
-        ra.addFlashAttribute("sucesso", "🎉 Evento alterado com sucesso!");
+        evento.setImagem(imagem);
+        eventosRepository.save(evento);
+
+        ra.addFlashAttribute("sucesso", "✅ Evento atualizado!");
         return "redirect:/";
     }
 
-    // ================== EXCLUIR ==================
+    // ===== EXCLUIR EVENTO =====
     @GetMapping("/excluirEvento/{idEvento}")
-    public String excluirEvento(@PathVariable String idEvento, RedirectAttributes ra) {
-        csr.deleteById(idEvento);
-        ra.addFlashAttribute("erro", "🗑 Evento excluído com sucesso!");
+    public String excluirEvento(@PathVariable String idEvento) {
+        eventosRepository.deleteById(idEvento);
         return "redirect:/";
     }
 }

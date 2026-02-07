@@ -2,32 +2,21 @@ package com.eventos.app.models;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.UUID;
 
 @Entity
-@Table(name = "evento")
 public class Evento {
 
     @Id
-    @Column(name = "id_evento", nullable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String idEvento;
 
     private String nome;
     private String local;
     private LocalDate data;
-    private LocalTime hora;
+    private String hora;
     private String imagem;
 
-    @PrePersist
-    public void gerarId() {
-        this.idEvento = UUID.randomUUID().toString();
-    }
-
     // getters e setters
-
-
-
     public String getIdEvento() {
         return idEvento;
     }
@@ -60,11 +49,11 @@ public class Evento {
         this.data = data;
     }
 
-    public LocalTime getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public void setHora(LocalTime hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 
