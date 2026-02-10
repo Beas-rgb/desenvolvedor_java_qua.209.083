@@ -62,10 +62,10 @@
 
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" th:href="@{/}">Home</a>
+          <a class="nav-link" th:class="${activePage == 'home' ? 'nav-link active' : 'nav-link'}" th:href="@{/}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/cadastrarEvento}">
+          <a class="nav-link"  th:class="${activePage == 'cadastrarEvento' ? 'nav-link active' : 'nav-link'}" th:href="@{/cadastrarEvento}">
             Cadastrar Evento
           </a>
         </li>

@@ -2,8 +2,12 @@ package com.eventos.app.controllers;
 
 import com.eventos.app.models.Evento;
 import com.eventos.app.repository.EventosRepository;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -72,5 +76,12 @@ public class EventosController {
     public String excluirEvento(@PathVariable String idEvento) {
         eventosRepository.deleteById(idEvento);
         return "redirect:/";
+    }
+
+    @ModelAttribute
+    public void addAttributes(HttpServletRequest request, Model model) {
+        String url = request.getRequestURI();
+        if (url.contains("cadastrarEvento")) model.addAttribute("activePage", "cadastrar"); 
+        else model.addAttribute("activePage", "nome");
     }
 }
