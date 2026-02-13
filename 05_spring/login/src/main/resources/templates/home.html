@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Sistema</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .navbar {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar h1 {
+            color: #333;
+            font-size: 24px;
+        }
+        
+        .navbar span {
+            color: #667eea;
+        }
+        
+        .btn-sair {
+            padding: 8px 20px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-sair:hover {
+            background: #ff3344;
+            transform: translateY(-2px);
+        }
+        
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25);
+            padding: 30px;
+        }
+        
+        .welcome {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .welcome h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .welcome p {
+            color: #666;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background: #e6f3ff;
+            color: #0066cc;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1><span>Sistema</span> de Login</h1>
+        <form th:action="@{/logout}" method="post" style="margin: 0;">
+            <button type="submit" class="btn-sair">Sair do Sistema</button>
+        </form>
+    </div>
+    
+    <div class="container">
+        <div class="welcome">
+            <h2>Bem-vindo ao Sistema! 👋</h2>
+            <p>Você está logado. Abaixo está a lista de usuários cadastrados:</p>
+        </div>
+        
+        <h3 style="margin-bottom: 20px; color: #333;">
+            📋 Usuários Cadastrados 
+            <span class="badge" th:text="${usuarios.size()} + ' usuários'"></span>
+        </h3>
+        
+        <div style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Login</th>
+                        <th>Nome Completo</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="usuario : ${usuarios}">
+                        <td><strong th:text="${usuario.login}"></strong></td>
+                        <td th:text="${usuario.nomeCompleto}"></td>
+                        <td><span style="color: green;">✓ Ativo</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div th:if="${usuarios.isEmpty()}" style="text-align: center; padding: 40px; color: #999;">
+            <p>Nenhum usuário cadastrado ainda.</p>
+            <p>Seja o primeiro a se cadastrar!</p>
+        </div>
+    </div>
+</body>
+</html>

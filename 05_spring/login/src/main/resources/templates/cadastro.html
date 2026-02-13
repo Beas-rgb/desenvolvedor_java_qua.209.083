@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Sistema</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+            width: 450px;
+            max-width: 100%;
+            padding: 40px;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            color: #333;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        
+        .logo span {
+            color: #667eea;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .alert {
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .alert-error {
+            background-color: #fee;
+            color: #c33;
+            border: 1px solid #fcc;
+        }
+        
+        .alert-success {
+            background-color: #efe;
+            color: #3c3;
+            border: 1px solid #cfc;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 2px dashed #eee;
+        }
+        
+        .login-link p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .btn-login {
+            display: inline-block;
+            padding: 10px 25px;
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-login:hover {
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .password-requirements {
+            font-size: 12px;
+            color: #777;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1><span>Criar</span> Conta</h1>
+            <p style="color: #777; margin-top: 10px;">Preencha os dados para se cadastrar</p>
+        </div>
+        
+        <!-- Mensagem de erro se login já existe -->
+        <div th:if="${param.error}" class="alert alert-error">
+            <strong>❌ Erro!</strong> Este login já existe! Escolha outro.
+        </div>
+        
+        <!-- Formulário de Cadastro -->
+        <form th:action="@{/salvarUsuario}" method="post">
+            <div class="form-group">
+                <label>👤 Login (usuário)</label>
+                <input type="text" name="login" placeholder="Escolha um nome de usuário" required>
+                <div class="password-requirements">
+                    Será usado para fazer login no sistema
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>📝 Nome Completo</label>
+                <input type="text" name="nomeCompleto" placeholder="Digite seu nome completo" required>
+            </div>
+            
+            <div class="form-group">
+                <label>🔒 Senha</label>
+                <input type="password" name="senha" placeholder="Crie uma senha segura" required>
+                <div class="password-requirements">
+                    Mínimo 6 caracteres
+                </div>
+            </div>
+            
+            <button type="submit" class="btn">
+                CADASTRAR CONTA
+            </button>
+        </form>
+        
+        <!-- Link para voltar ao login -->
+        <div class="login-link">
+            <p>Já tem uma conta?</p>
+            <a href="/login" class="btn-login">
+                FAZER LOGIN
+            </a>
+        </div>
+    </div>
+</body>
+</html>
